@@ -6,7 +6,7 @@ export class Home extends Component {
   render() {
     return (
       <View>
-        <Form></Form>
+        <Form />
       </View>
     );
   }

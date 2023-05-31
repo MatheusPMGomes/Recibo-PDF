@@ -10,13 +10,20 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.6",
     "adb": "^0.2.0",
+    "expo": "^48.0.0",
+    "expo-modules-core": "^1.2.7",
+    "expo-print": "^12.2.1",
+    "expo-sharing": "^11.2.2",
     "gradlew": "^0.0.1-security",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-blob-util": "^0.17.3",
     "react-native-floating-label-input": "^1.4.2",
     "react-native-mask-text": "^0.13.2",
-    "react-native-webview": "^12.1.0",
+    "react-native-pdf": "^6.6.2",
+    "react-native-webview": "11.26.0",
     "styled-components": "^5.3.11"
   },
   "devDependencies": {
@@ -26,7 +33,7 @@
     "@react-native-community/eslint-config": "^3.2.0",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
-    "@types/react": "^18.0.24",
+    "@types/react": "^18.2.7",
     "@types/react-native-pdf-lib": "^0.2.1",
     "@types/react-test-renderer": "^18.0.0",
     "@types/styled-components": "^5.1.26",
