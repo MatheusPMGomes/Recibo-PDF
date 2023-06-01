@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import {MaskedTextInput} from 'react-native-mask-text';
 import {printToFileAsync} from 'expo-print';
+import * as Print from 'expo-print';
 import {shareAsync} from 'expo-sharing';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -85,6 +86,7 @@ const Form: React.FC = () => {
   const [cep, setCep] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [atividade, setAtividade] = useState('');
+  const inputValor = useRef<typeof MaskedInput | null>(null);
 
   const clearForm = () => {
     setCidade('');
@@ -95,6 +97,7 @@ const Form: React.FC = () => {
     setCnpj('');
     setValor('');
     setAtividade('');
+    inputValor.current.setNativeProps({text: '0.00'});
   };
 
   const html = `
@@ -111,7 +114,7 @@ const Form: React.FC = () => {
       ${endereco ? `endereço ${endereco},` : ''}
       ${cep ? `CEP ${cep},` : ''}
       ${cnpj ? `CNPJ ${cnpj},` : ''}
-      ${valor ? `o valor R$${valor}` : ''}
+      ${valor ? `o valor de R$${valor}` : ''}
       ${atividade ? `referente a ${atividade}` : ''}.</p>
       <br><br><br><br><br><br>
       <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">Eletricista</p>
@@ -130,6 +133,12 @@ const Form: React.FC = () => {
     });
 
     await shareAsync(file.uri);
+  };
+
+  const print = async () => {
+    await Print.printAsync({
+      html: html,
+    });
   };
 
   return (
@@ -171,14 +180,29 @@ const Form: React.FC = () => {
           />
 
           <InputTitle>Valor R$</InputTitle>
-          <Input value={valor} onChangeText={setValor} keyboardType="numeric" />
+          <MaskedInput
+            ref={inputValor}
+            type="currency"
+            options={{
+              prefix: '',
+              decimalSeparator: ',',
+              groupSeparator: '.',
+              precision: 2,
+            }}
+            onChangeText={setValor}
+            keyboardType="numeric"
+          />
 
           <InputTitle>Atividade</InputTitle>
           <Input value={atividade} onChangeText={setAtividade} />
 
           <ContainerButtons>
             <TouchableOpacity onPress={generatePdf}>
-              <ButtonText backgroundColor="yellow">Gerar PDF</ButtonText>
+              <ButtonText backgroundColor="yellow">Compartilhar PDF</ButtonText>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={print}>
+              <ButtonText backgroundColor="green">Baixar PDF</ButtonText>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={clearForm}>
