@@ -21,6 +21,7 @@
     "react-native": "0.71.8",
     "react-native-blob-util": "^0.17.3",
     "react-native-floating-label-input": "^1.4.2",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-mask-text": "^0.13.2",
     "react-native-pdf": "^6.6.2",
     "react-native-webview": "11.26.0",

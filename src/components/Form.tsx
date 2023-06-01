@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {StyleSheet, TextInput, TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import {MaskedTextInput} from 'react-native-mask-text';
 import {printToFileAsync} from 'expo-print';
 import {shareAsync} from 'expo-sharing';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const Wrapper = styled.View`
   background-color: #3e3e3f;
@@ -51,13 +52,23 @@ const MaskedInput = styled(MaskedTextInput)`
   margin-top: 10px;
 `;
 
+const ContainerButtons = styled.View`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+`;
+
 const ButtonText = styled.Text`
   color: black;
   background-color: yellow;
   text-align: center;
   padding: 20px;
   border-radius: 10px;
-  width: 250px;
+  width: auto;
   margin: 20px auto;
   font-size: 20px;
 `;
@@ -72,14 +83,14 @@ const Form: React.FC = () => {
   const [cnpj, setCnpj] = useState('');
   const [atividade, setAtividade] = useState('');
 
-  const handleSubmit = () => {
+  const clearForm = () => {
     setCidade('');
     setData('');
     setEstabelecimento('');
     setEndereco('');
-    setValor('');
     setCep('');
     setCnpj('');
+    setValor('');
     setAtividade('');
   };
 
@@ -122,73 +133,56 @@ const Form: React.FC = () => {
     <Wrapper>
       <HeaderText>Recibo-PDF</HeaderText>
       <Container>
-        <InputTitle>Cidade</InputTitle>
-        <Input
-          placeholder="Cidade"
-          value={cidade}
-          onChangeText={setCidade}
-          placeholderTextColor="white"
-        />
-        <InputTitle>Data</InputTitle>
-        <MaskedInput
-          placeholder="Data"
-          value={data}
-          onChangeText={setData}
-          placeholderTextColor="white"
-          keyboardType="numeric"
-          mask="99/99/9999"
-        />
-        <InputTitle>Estabelecimento</InputTitle>
-        <Input
-          placeholder="Estabelecimento"
-          value={estabelecimento}
-          onChangeText={setEstabelecimento}
-          placeholderTextColor="white"
-        />
-        <InputTitle>Endereço</InputTitle>
-        <Input
-          placeholder="Endereço"
-          value={endereco}
-          onChangeText={setEndereco}
-          placeholderTextColor="white"
-        />
-        <InputTitle>CEP</InputTitle>
-        <MaskedInput
-          placeholder="CEP"
-          value={cep}
-          onChangeText={setCep}
-          placeholderTextColor="white"
-          keyboardType="numeric"
-          mask="99999-999"
-        />
-        <InputTitle>CNPJ</InputTitle>
-        <MaskedInput
-          placeholder="CNPJ"
-          value={cnpj}
-          onChangeText={setCnpj}
-          placeholderTextColor="white"
-          keyboardType="numeric"
-          mask="99.999.999/9999-99"
-        />
-        <InputTitle>Valor R$</InputTitle>
-        <Input
-          placeholder="Valor (R$)"
-          value={valor}
-          onChangeText={setValor}
-          placeholderTextColor="white"
-          keyboardType="numeric"
-        />
-        <InputTitle>Atividade</InputTitle>
-        <Input
-          placeholder="Atividade"
-          value={atividade}
-          onChangeText={setAtividade}
-          placeholderTextColor="white"
-        />
+        <KeyboardAwareScrollView>
+          <InputTitle>Cidade</InputTitle>
+          <Input value={cidade} onChangeText={setCidade} />
 
-        <TouchableOpacity onPress={generatePdf}>
-          <ButtonText>Gerar PDF</ButtonText>
-        </TouchableOpacity>
+          <InputTitle>Data</InputTitle>
+          <MaskedInput
+            value={data}
+            onChangeText={setData}
+            keyboardType="numeric"
+            mask="99/99/9999"
+          />
+
+          <InputTitle>Estabelecimento</InputTitle>
+          <Input value={estabelecimento} onChangeText={setEstabelecimento} />
+
+          <InputTitle>Endereço</InputTitle>
+          <Input value={endereco} onChangeText={setEndereco} />
+
+          <InputTitle>CEP</InputTitle>
+          <MaskedInput
+            value={cep}
+            onChangeText={setCep}
+            keyboardType="numeric"
+            mask="99999-999"
+          />
+
+          <InputTitle>CNPJ</InputTitle>
+          <MaskedInput
+            value={cnpj}
+            onChangeText={setCnpj}
+            keyboardType="numeric"
+            mask="99.999.999/9999-99"
+          />
+
+          <InputTitle>Valor R$</InputTitle>
+          <Input value={valor} onChangeText={setValor} keyboardType="numeric" />
+
+          <InputTitle>Atividade</InputTitle>
+          <Input value={atividade} onChangeText={setAtividade} />
+
+          <ContainerButtons>
+            <TouchableOpacity onPress={generatePdf}>
+              <ButtonText>Compartilhar PDF</ButtonText>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={clearForm}>
+              <ButtonText>Limpar Formulário</ButtonText>
+            </TouchableOpacity>
+          </ContainerButtons>
+        </KeyboardAwareScrollView>
       </Container>
     </Wrapper>
   );
