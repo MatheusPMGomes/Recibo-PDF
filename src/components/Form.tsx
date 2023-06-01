@@ -5,6 +5,7 @@ import {MaskedTextInput} from 'react-native-mask-text';
 import {printToFileAsync} from 'expo-print';
 import {shareAsync} from 'expo-sharing';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const Wrapper = styled.View`
   background-color: #3e3e3f;
@@ -60,11 +61,13 @@ const ContainerButtons = styled.View`
   margin: auto;
   text-align: center;
   justify-content: center;
+  width: 100%;
 `;
 
-const ButtonText = styled.Text`
+const ButtonText = styled.Text<{backgroundColor?: string}>`
   color: black;
-  background-color: yellow;
+  background-color: ${(props: {backgroundColor: any}) =>
+    props.backgroundColor || Colors};
   text-align: center;
   padding: 20px;
   border-radius: 10px;
@@ -175,11 +178,13 @@ const Form: React.FC = () => {
 
           <ContainerButtons>
             <TouchableOpacity onPress={generatePdf}>
-              <ButtonText>Compartilhar PDF</ButtonText>
+              <ButtonText backgroundColor="yellow">Gerar PDF</ButtonText>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={clearForm}>
-              <ButtonText>Limpar Formulário</ButtonText>
+              <ButtonText backgroundColor="#f02e3c">
+                Limpar Formulário
+              </ButtonText>
             </TouchableOpacity>
           </ContainerButtons>
         </KeyboardAwareScrollView>
