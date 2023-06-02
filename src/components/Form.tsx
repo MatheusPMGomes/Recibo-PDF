@@ -108,7 +108,7 @@ const Form: React.FC = () => {
     <h1 style="text-align:center; font-size:40px; margin:0;">
     ${cidade ? `${cidade}.` : ``}${data ? ` ${data}.` : ``}</h1>
     <br><br>
-      <p style="width:80%; font-size:30px; text-align:justify; margin:auto; line-height: 1.5;">
+      <p style="width:80%; font-size:30px; margin:auto; line-height: 1.5;">
       Recebi do(a)
       ${estabelecimento ? ` ${estabelecimento},` : ''}
       ${endereco ? `endereço ${endereco},` : ''}
@@ -117,11 +117,15 @@ const Form: React.FC = () => {
       ${valor ? `o valor de R$${valor}` : ''}
       ${atividade ? `referente a ${atividade}` : ''}.</p>
       <br><br><br><br><br><br>
-      <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">Eletricista</p>
-      <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">Eduardo Schunk Martins</p>
-      <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">CPF 034.364.577-79</p>
-      <br><br><br>
-      <p style="width:90%; font-size:30px; text-align:center; margin:auto">__________________________________________</p>
+      <div style="width:90% ; display:flex; flex-direction: column; position:fixed; bottom:0%; left:50%; transform: translate(-50%, 0)">
+        <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">Eletricista</p>
+        <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">Eduardo Schunk Martins</p>
+        <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">CPF 034.364.577-79</p>
+        <br><br><br>
+        <div style="border-bottom: 1px solid">
+          <span></span>
+        </div>
+      </div>
     </body>
   </html>
 `;
