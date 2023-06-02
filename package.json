@@ -17,6 +17,7 @@
     "expo-print": "^12.2.1",
     "expo-sharing": "^11.2.2",
     "gradlew": "^0.0.1-security",
+    "moment": "^2.29.4",
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-blob-util": "^0.17.3",

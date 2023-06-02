@@ -7,6 +7,8 @@ import * as Print from 'expo-print';
 import {shareAsync} from 'expo-sharing';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 
 const Wrapper = styled.View`
   background-color: #3e3e3f;
@@ -100,13 +102,30 @@ const Form: React.FC = () => {
     inputValor.current.setNativeProps({text: '0.00'});
   };
 
+  let generatePdf = async () => {
+    const file = await printToFileAsync({
+      html: html,
+      base64: false,
+    });
+
+    await shareAsync(file.uri);
+  };
+
+  const print = async () => {
+    await Print.printAsync({
+      html: html,
+    });
+  };
+
   const html = `
   <html>
     <body>
     <br><br><br>
     <h1 style="text-align:center; font-size:50px; margin:0; ">Recibo<h1>
     <h1 style="text-align:center; font-size:40px; margin:0;">
-    ${cidade ? `${cidade}.` : ``}${data ? ` ${data}.` : ``}</h1>
+    ${cidade ? `${cidade}.` : ``}${
+    data ? ` ${moment(data, 'DD/MM/YYYY').format('LL')}.` : ``
+  }</h1>
     <br><br>
       <p style="width:80%; font-size:30px; margin:auto; line-height: 1.5;">
       Recebi do(a)
@@ -129,21 +148,6 @@ const Form: React.FC = () => {
     </body>
   </html>
 `;
-
-  let generatePdf = async () => {
-    const file = await printToFileAsync({
-      html: html,
-      base64: false,
-    });
-
-    await shareAsync(file.uri);
-  };
-
-  const print = async () => {
-    await Print.printAsync({
-      html: html,
-    });
-  };
 
   return (
     <Wrapper>
