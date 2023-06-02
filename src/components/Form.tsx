@@ -123,7 +123,7 @@ const Form: React.FC = () => {
     <br><br><br>
     <h1 style="text-align:center; font-size:50px; margin:0; ">Recibo<h1>
     <h1 style="text-align:center; font-size:40px; margin:0;">
-    ${cidade ? `${cidade}.` : ``}${
+    ${cidade ? `${cidade},` : ``}${
     data ? ` ${moment(data, 'DD/MM/YYYY').format('LL')}.` : ``
   }</h1>
     <br><br>
@@ -152,8 +152,8 @@ const Form: React.FC = () => {
   return (
     <Wrapper>
       <HeaderText>Recibo-PDF</HeaderText>
-      <Container>
-        <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView>
+        <Container>
           <InputTitle>Cidade</InputTitle>
           <Input value={cidade} onChangeText={setCidade} />
 
@@ -219,8 +219,8 @@ const Form: React.FC = () => {
               </ButtonText>
             </TouchableOpacity>
           </ContainerButtons>
-        </KeyboardAwareScrollView>
-      </Container>
+        </Container>
+      </KeyboardAwareScrollView>
     </Wrapper>
   );
 };
