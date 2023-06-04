@@ -89,6 +89,7 @@ const Form: React.FC = () => {
   const [cnpj, setCnpj] = useState('');
   const [atividade, setAtividade] = useState('');
   const inputValor = useRef<typeof MaskedInput | null>(null);
+  const padrao = /[ \f\t\v]+$/;
 
   const clearForm = () => {
     setCidade('');
@@ -123,19 +124,18 @@ const Form: React.FC = () => {
     <br><br><br>
     <h1 style="text-align:center; font-size:50px; margin:0; ">Recibo<h1>
     <h1 style="text-align:center; font-size:40px; margin:0;">
-    ${cidade ? `${cidade},` : ``}${
+    ${cidade ? `${cidade.replace(padrao, '')},` : ``}${
     data ? ` ${moment(data, 'DD/MM/YYYY').format('LL')}.` : ``
   }</h1>
     <br><br>
       <p style="width:80%; font-size:30px; margin:auto; line-height: 1.5;">
       Recebi do(a)
-      ${estabelecimento ? ` ${estabelecimento},` : ''}
-      ${endereco ? `endereço ${endereco},` : ''}
+      ${estabelecimento ? ` ${estabelecimento.replace(padrao, '')},` : ''}
+      ${endereco ? `endereço ${endereco.replace(padrao, '')},` : ''}
       ${cep ? `CEP ${cep},` : ''}
       ${cnpj ? `CNPJ ${cnpj},` : ''}
       ${valor ? `o valor de R$${valor}` : ''}
-      ${atividade ? `referente a ${atividade}` : ''}.</p>
-      <br><br><br><br><br><br>
+      ${atividade ? `referente a ${atividade.replace(padrao, '')}` : ''}.</p>
       <div style="width:90% ; display:flex; flex-direction: column; position:fixed; bottom:0%; left:50%; transform: translate(-50%, 0)">
         <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">Eletricista</p>
         <p style="width:80%; font-size:30px; text-align:center; margin:auto; line-height: 1.5;">Eduardo Schunk Martins</p>
